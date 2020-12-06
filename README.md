@@ -13,11 +13,11 @@ The ethernet driver provided by ST in STM32CubeIDE/STM32CubeMX is extremely bugg
 * Copy the modified `stm32h7xx_hal_eth.h` file into the same path as `stm32h7xx_hal_conf.h` (`Core/Inc/` by default).  This should be enough to prevent the original version from being used.
 * Copy the modified `stm32h7xx_hal_eth.c` and `ethernetif.c` files somewhere into your source tree.
 * Exclude the previous versions of these files (i.e. `Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c` and `LWIP/Target/ethernetif.c` from your build.
-* The original versions of `stm32h7xx_hal_eth.h`, `stm32h7xx_hal_eth.c` and `ethernetif.c` can then be deleted from your source tree (not mandatory, but may prevent confusion in the future).
+* The original versions of `stm32h7xx_hal_eth.h`, `stm32h7xx_hal_eth.c` and `ethernetif.c` can then be safely deleted from your source tree (not mandatory, but may prevent confusion in the future).
 
 ## 2. Configure up memory map
 
-I located all of the necessary memory in D2 as follows:
+I located all of the necessary memory in RAM_D2 as follows:
 
 * 0x30000000: 128KB region (uncached) for Ethernet RX buffers
 * 0x30020000: 16KB region (cached) for Ethernet TX buffers
@@ -28,7 +28,7 @@ The remainder of these instructions assume that this memory map is being used.  
 * `EthRxBlock` should be aligned on a 128K boundary
 * `EthDescriptorsBlock` should be aligned on a 1K boundary
 
-Assuming that the memory map is as I described above, add the following to `STM32H743ZITX_FLASH.ld`:
+Assuming that the memory map is as I described above, then add the following to `STM32H743ZITX_FLASH.ld`:
 
 ```
   .EthRxBlock (NOLOAD) :
@@ -65,18 +65,27 @@ Assuming that the memory map is as I described above, add the following to `STM3
 
 ## 3. Adjust settings in STM32CubeIDE
 
-LWIP settings:
+Ethernet configuration
 
-* Set ETH_RX_BUFFER_SIZE=1024
-* Set LWIP_MPU_COMPATIBLE=1
-* Set MEM_SIZE=16000
-* Set LWIP_RAM_HEAP_POINTER=0x30020000
+* Navigate to Connectivity -> ETH -> Parameter Settings
+* Rx Buffers Length -> 1024
+* The other values (Tx Descriptor Length, First Tx Descriptor Address, Rx Descriptor Length, First Rx Descriptor Address, Rx Buffers Address) are not used, suggest setting to 0
+* Make sure that Ethernet global interrupt is enabled in NVIC Settings
 
-Ethernet settings:
+LWIP configuration
 
-* heth.Init.RxBuffLen=1024
+* Navigate to Middleware -> LWIP -> Key Options
+* Enable "Show Advanced Parameters"
+* Infrastructure - Core Locking and MPU Option -> LWIP_MPU_COMPATIBLE (Special Memory Management) -> Enabled
+* Infrastructure - Heap and Memory Pools Options -> MEM_SIZE (Heap Memory Size) -> 16000 Byte(s)
+* Infrastructure - Heap and Memory Pools Options -> LWIP_RAM_HEAP_POINTER (RAM Heap Pointer) -> 0x30020000
 
-MPU settings:
+MPU settings
+
+* Nativate to System Core -> CORETEX_M7 -> Parameter Settings
+* Configure settings as shown below:
+
+![MPU Configuration](http://full/path/to/img.jpg "MPU Configuration")
 
 The resulting code should be as follows:
 
@@ -122,7 +131,6 @@ void MPU_Config(void)
 
 }
 ```
-
 
 ## 4. Regenerate code
 
