@@ -15,7 +15,7 @@ This driver is needed because the ethernet driver provided by ST in STM32CubeIDE
 * Exclude the previous versions of these files (i.e. `Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c` and `LWIP/Target/ethernetif.c` from your build.
 * The original versions of `stm32h7xx_hal_eth.h`, `stm32h7xx_hal_eth.c` and `ethernetif.c` can then be safely deleted from your source tree (not mandatory, but may prevent confusion in the future).
 
-## 2. Configure up memory map
+## 2. Modify linker script
 
 I located all of the necessary memory in RAM_D2 as follows:
 
