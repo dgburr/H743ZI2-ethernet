@@ -4,7 +4,7 @@ This repository contains a functional Ethernet driver for the NUCLEO H743ZI2 dev
 
 # Why is it needed?
 
-The ethernet driver provided by ST in STM32CubeIDE/STM32CubeMX is extremely buggy and unstable.
+This driver is needed because the ethernet driver provided by ST in STM32CubeIDE/STM32CubeMX is extremely buggy and unstable.
 
 # Setup instructions
 
@@ -65,24 +65,24 @@ Assuming that the memory map is as I described above, then add the following to 
 
 ## 3. Adjust settings in STM32CubeIDE
 
-Ethernet configuration
+### Ethernet configuration
 
-* Navigate to Connectivity -> ETH -> Parameter Settings
-* Rx Buffers Length -> 1024
-* The other values (Tx Descriptor Length, First Tx Descriptor Address, Rx Descriptor Length, First Rx Descriptor Address, Rx Buffers Address) are not used, suggest setting to 0
-* Make sure that Ethernet global interrupt is enabled in NVIC Settings
+* Navigate to *Connectivity* -> *ETH* -> *Parameter Settings*
+* Set *Rx Buffers Length* to 1024
+* The other values (*Tx Descriptor Length*, *First Tx Descriptor Address*, *Rx Descriptor Length*, *First Rx Descriptor Address*, *Rx Buffers Address*) are not used and can safely be set to 0
+* Make sure that *Ethernet global interrupt* is enabled in *NVIC Settings*
 
-LWIP configuration
+### LWIP configuration
 
-* Navigate to Middleware -> LWIP -> Key Options
-* Enable "Show Advanced Parameters"
-* Infrastructure - Core Locking and MPU Option -> LWIP_MPU_COMPATIBLE (Special Memory Management) -> Enabled
-* Infrastructure - Heap and Memory Pools Options -> MEM_SIZE (Heap Memory Size) -> 16000 Byte(s)
-* Infrastructure - Heap and Memory Pools Options -> LWIP_RAM_HEAP_POINTER (RAM Heap Pointer) -> 0x30020000
+* Navigate to *Middleware* -> *LWIP* -> *Key Options*
+* Enable *Show Advanced Parameters*
+* *Infrastructure - Core Locking and MPU Option* -> *LWIP_MPU_COMPATIBLE (Special Memory Management)* -> Set to *Enabled*
+* *Infrastructure - Heap and Memory Pools Options -> MEM_SIZE (Heap Memory Size)* -> Set to *16000 Byte(s)*
+* *Infrastructure - Heap and Memory Pools Options -> LWIP_RAM_HEAP_POINTER (RAM Heap Pointer)* -> Set to 0x30020000
 
-MPU settings
+### MPU settings
 
-* Nativate to System Core -> CORETEX_M7 -> Parameter Settings
+* Nativate to *System Core* -> *CORETEX_M7* -> *Parameter Settings*
 * Configure settings as shown below:
 
 ![MPU Configuration](screenshots/mpu_config.png?raw=true "MPU Configuration")
@@ -134,6 +134,8 @@ void MPU_Config(void)
 
 ## 4. Regenerate code
 
+*Project* -> *Generate Code*
+
 ## 5. Modify lwipopts.h
 
 Add the following to the `USER CODE 1` section in `lwipopts.h`:
@@ -142,7 +144,9 @@ Add the following to the `USER CODE 1` section in `lwipopts.h`:
 #define LWIP_DEBUG 0
 ```
 
-## 6. Recompile
+## 6. Compile
+
+*Project* -> *Build All*
 
 ## 7. Enjoy
 
