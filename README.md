@@ -85,7 +85,7 @@ MPU settings
 * Nativate to System Core -> CORETEX_M7 -> Parameter Settings
 * Configure settings as shown below:
 
-![MPU Configuration](http://full/path/to/img.jpg "MPU Configuration")
+![MPU Configuration](screenshots/mpu_config.png?raw=true "MPU Configuration")
 
 The resulting code should be as follows:
 
