@@ -1,6 +1,6 @@
 # What is this?
 
-This repository contains a functional Ethernet driver for the NUCLEO H743ZI2 development board from ST.  It is based on [V2 of the improved driver provided by Alister Fisher on the ST Community Forums](https://community.st.com/s/question/0D50X0000C6eNNSSQ2/bug-fixes-stm32h7-ethernet).
+This repository contains a functional Ethernet driver for the NUCLEO H743ZI2 development board from ST.  It is based on [V2 of the improved driver provided by Alister Fisher on the ST Community Forums](https://community.st.com/s/question/0D50X0000C6eNNSSQ2/bug-fixes-stm32h7-ethernet) with modifications to support the LAN8742A PHY found on the NUCLEO H743ZI2 boards.
 
 # Why is it needed?
 
