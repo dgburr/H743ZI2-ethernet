@@ -68,7 +68,7 @@ Assuming that the memory map is as I described above, then add the following to 
 ### Ethernet configuration
 
 * Navigate to *Connectivity* -> *ETH* -> *Parameter Settings*
-* Set *Rx Buffers Length* to 1024.  This will set `ETH_RX_BUFFER_SIZE` to 1 in in `lwipopts.h`.
+* Set *Rx Buffers Length* to 1024.  This will set `ETH_RX_BUFFER_SIZE` to 1024 in in `lwipopts.h`.
 * The other values (*Tx Descriptor Length*, *First Tx Descriptor Address*, *Rx Descriptor Length*, *First Rx Descriptor Address*, *Rx Buffers Address*) are not used and can safely be set to 0
 * Make sure that *Ethernet global interrupt* is enabled in *NVIC Settings*
 
