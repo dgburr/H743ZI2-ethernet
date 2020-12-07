@@ -68,7 +68,7 @@ Assuming that the memory map is as I described above, then add the following to 
 ### Ethernet configuration
 
 * Navigate to *Connectivity* -> *ETH* -> *Parameter Settings*
-* Set *Rx Buffers Length* to 1024
+* Set *Rx Buffers Length* to 1024.  This will set `ETH_RX_BUFFER_SIZE` to 1 in in `lwipopts.h`.
 * The other values (*Tx Descriptor Length*, *First Tx Descriptor Address*, *Rx Descriptor Length*, *First Rx Descriptor Address*, *Rx Buffers Address*) are not used and can safely be set to 0
 * Make sure that *Ethernet global interrupt* is enabled in *NVIC Settings*
 
@@ -76,9 +76,9 @@ Assuming that the memory map is as I described above, then add the following to 
 
 * Navigate to *Middleware* -> *LWIP* -> *Key Options*
 * Enable *Show Advanced Parameters*
-* *Infrastructure - Core Locking and MPU Option* -> *LWIP_MPU_COMPATIBLE (Special Memory Management)* -> Set to *Enabled*
-* *Infrastructure - Heap and Memory Pools Options -> MEM_SIZE (Heap Memory Size)* -> Set to *16000 Byte(s)*
-* *Infrastructure - Heap and Memory Pools Options -> LWIP_RAM_HEAP_POINTER (RAM Heap Pointer)* -> Set to 0x30020000
+* *Infrastructure - Core Locking and MPU Option* -> *LWIP_MPU_COMPATIBLE (Special Memory Management)* -> Set to *Enabled*.  This will set `LWIP_MPU_COMPATIBLE` to 1 in `lwipopts.h`.
+* *Infrastructure - Heap and Memory Pools Options -> MEM_SIZE (Heap Memory Size)* -> Set to *16000 Byte(s)*.  This will set `MEM_SIZE` to 16000 in `lwipopts.h`.
+* *Infrastructure - Heap and Memory Pools Options -> LWIP_RAM_HEAP_POINTER (RAM Heap Pointer)* -> Set to 0x30020000.  This will set `LWIP_RAM_HEAP_POINTER` to 0x30020000 in `lwipopts.h`.
 
 ### MPU settings
 
